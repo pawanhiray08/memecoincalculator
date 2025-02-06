@@ -1,0 +1,356 @@
+/* Modern UI Theme with Black/Blue/Golden */
+:root {
+    /* Default Theme - Modern Dark */
+    --primary: #6366f1;      /* Indigo */
+    --secondary: #22c55e;    /* Green */
+    --accent: #94a3b8;       /* Cool Gray */
+    --background: #111827;   /* Dark Gray */
+    --card: #1f2937;         /* Slightly lighter gray */
+    --text: #ffffff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ef4444;      /* Red */
+}
+
+/* Cyberpunk Theme */
+[data-theme="cyberpunk"] {
+    --primary: #ff0055;
+    --secondary: #00ff9f;
+    --accent: #00f3ff;
+    --background: #120458;
+    --card: rgba(18, 4, 88, 0.85);
+    --text: #ffffff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ff3860;
+}
+
+/* Forest Theme */
+[data-theme="forest"] {
+    --primary: #2d6a4f;
+    --secondary: #95d5b2;
+    --accent: #74c69d;
+    --background: #081c15;
+    --card: rgba(8, 28, 21, 0.85);
+    --text: #d8f3dc;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #d62828;
+}
+
+/* Sunset Theme */
+[data-theme="sunset"] {
+    --primary: #ff6b6b;
+    --secondary: #ffd93d;
+    --accent: #ff9a3c;
+    --background: #2b2d42;
+    --card: rgba(43, 45, 66, 0.85);
+    --text: #edf2f4;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ef233c;
+}
+
+/* Ocean Theme */
+[data-theme="ocean"] {
+    --primary: #00b4d8;
+    --secondary: #90e0ef;
+    --accent: #48cae4;
+    --background: #03045e;
+    --card: rgba(3, 4, 94, 0.85);
+    --text: #caf0f8;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ff0a54;
+}
+
+/* Royal Theme */
+[data-theme="royal"] {
+    --primary: #7b2cbf;
+    --secondary: #c77dff;
+    --accent: #9d4edd;
+    --background: #10002b;
+    --card: rgba(16, 0, 43, 0.85);
+    --text: #e0aaff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ff0a54;
+}
+
+/* Retro Theme */
+[data-theme="retro"] {
+    --primary: #ff6b35;
+    --secondary: #f7c59f;
+    --accent: #efefd0;
+    --background: #004e89;
+    --card: rgba(0, 78, 137, 0.85);
+    --text: #ffffff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #da1e37;
+}
+
+/* Neon Theme */
+[data-theme="neon"] {
+    --primary: #00ff00;
+    --secondary: #ff00ff;
+    --accent: #00ffff;
+    --background: #000000;
+    --card: rgba(0, 0, 0, 0.85);
+    --text: #ffffff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #ff0000;
+}
+
+/* Desert Theme */
+[data-theme="desert"] {
+    --primary: #e9c46a;
+    --secondary: #f4a261;
+    --accent: #e76f51;
+    --background: #264653;
+    --card: rgba(38, 70, 83, 0.85);
+    --text: #ffffff;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #bc4749;
+}
+
+/* Nordic Theme */
+[data-theme="nordic"] {
+    --primary: #81a1c1;
+    --secondary: #88c0d0;
+    --accent: #8fbcbb;
+    --background: #2e3440;
+    --card: rgba(46, 52, 64, 0.85);
+    --text: #eceff4;
+    --text-secondary: #f3f4f6;
+    --text-muted: #e2e8f0;
+    --danger: #bf616a;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--background), var(--card));
+    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    padding: 0.75rem;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 1.75rem;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-top: 0.25rem;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.input-group {
+    margin-bottom: 0.25rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.95rem;
+    background: var(--background);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    color: var(--text);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.market-caps,
+.fee-settings,
+.summary,
+.results {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.market-caps {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.fee-settings {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0.6rem;
+    background: var(--card);
+    border-radius: 6px;
+}
+
+.summary,
+.results {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.metric {
+    padding: 0.6rem;
+    background: var(--card);
+    border-radius: 6px;
+}
+
+.metric.highlight {
+    background: linear-gradient(145deg, var(--primary), var(--secondary));
+}
+
+.metric.highlight label,
+.metric.highlight span {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.metric label {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.metric span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle {
+    width: 100%;
+    padding: 0.6rem;
+    background: linear-gradient(145deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.creator-info {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.creator-info a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.creator-info a:hover {
+    color: var(--secondary);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+}
+
+.social-link {
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    transition: all 0.2s;
+}
+
+.social-link:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.social-link i {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+#profitLoss.positive {
+    color: #4ade80;
+    text-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+    font-weight: 600;
+}
+
+#profitLoss.negative {
+    color: #f87171;
+    text-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .market-caps,
+    .fee-settings,
+    .summary,
+    .results {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input,
+    .theme-toggle {
+        padding: 0.5rem;
+    }
+}

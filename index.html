@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Coin P&L Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>🚀 Meme Coin Calculator</h1>
+        <p class="subtitle">Track your journey to the moon 🌕</p>
+    </header>
+
+    <main class="main-content">
+        <div class="input-group">
+            <label>Initial Investment ($)</label>
+            <input type="number" id="investment" step="0.01" placeholder="Enter your investment amount">
+        </div>
+
+        <div class="market-caps">
+            <div class="input-group">
+                <label>Buy Market Cap ($)</label>
+                <input type="number" id="buyMarketCap" step="1000000" placeholder="Market cap when bought">
+            </div>
+            
+            <div class="input-group">
+                <label>Sell Market Cap ($)</label>
+                <input type="number" id="sellMarketCap" step="1000000" placeholder="Market cap when sold">
+            </div>
+        </div>
+
+        <div class="fee-settings">
+            <div class="input-group">
+                <label>Slippage (%)</label>
+                <input type="number" id="slippage" value="1.5" step="0.1" min="0" max="100">
+            </div>
+            <div class="input-group">
+                <label>Network Fee (SOL)</label>
+                <input type="number" id="networkFee" value="0.000005" step="0.000001">
+            </div>
+            <div class="input-group">
+                <label>SOL Price ($)</label>
+                <input type="number" id="solPrice" value="100" step="0.01">
+            </div>
+        </div>
+
+        <div class="summary">
+            <div class="metric highlight">
+                <label>Total Invested:</label>
+                <span id="totalInvested">$0.00</span>
+            </div>
+            <div class="metric highlight">
+                <label>Total Value:</label>
+                <span id="totalValue">$0.00</span>
+            </div>
+            <div class="metric">
+                <label>After Fees Value:</label>
+                <span id="adjustedValue">$0.00</span>
+            </div>
+            <div class="metric">
+                <label>Total Fees:</label>
+                <span id="totalFees">$0.00</span>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="metric">
+                <label>Profit/Loss:</label>
+                <span id="profitLoss">$0.00</span>
+            </div>
+            <div class="metric">
+                <label>ROI:</label>
+                <span id="roi">0.00%</span>
+            </div>
+            <div class="metric">
+                <label>Return Multiplier:</label>
+                <span id="xReturn">0.00x</span>
+            </div>
+            <div class="metric">
+                <label>Break-even:</label>
+                <span id="breakEven">$0.00</span>
+            </div>
+            <div class="metric">
+                <label>Market Cap Change:</label>
+                <span id="projectedProfit">$0.00</span>
+            </div>
+        </div>
+
+        <button class="theme-toggle">Theme: Default</button>
+    </main>
+
+    <footer class="creator-info">
+        <p>Made with 💎 by <a href="https://twitter.com/w3b_gen" target="_blank">w3b_gen</a></p>
+        <div class="social-links">
+            <a href="https://twitter.com/w3b_gen" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://github.com/pawanhiray08" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/pawan-hiray-999bb32a6" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
