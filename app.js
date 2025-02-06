@@ -94,10 +94,22 @@ const themes = [
 let currentThemeIndex = 0;
 
 function toggleTheme() {
+    // Remove all theme classes
+    themes.forEach(theme => {
+        document.documentElement.classList.remove(theme);
+    });
+
+    // Set new theme
     currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    const theme = themes[currentThemeIndex];
-    document.documentElement.className = theme;
-    document.querySelector('.theme-toggle').textContent = `Theme: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+    const newTheme = themes[currentThemeIndex];
+    
+    if (newTheme !== 'default') {
+        document.documentElement.classList.add(newTheme);
+    }
+
+    // Update button text with capitalized theme name
+    const themeButton = document.querySelector('.theme-toggle');
+    themeButton.textContent = `Theme: ${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)}`;
 }
 
 // Add input listeners for real-time validation
