@@ -331,26 +331,173 @@ input:focus {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+
+    body {
+        padding: 0.4rem;
+    }
+
+    .header {
+        padding-bottom: 0.2rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .subtitle {
+        font-size: 0.75rem;
+        margin-top: 0.1rem;
+    }
+
+    .main-content {
+        gap: 0.25rem;
+        height: calc(100% - 4rem);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-group {
+        margin-bottom: 0.1rem;
+    }
+
+    label {
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
+    }
+
+    input {
+        padding: 0.35rem;
+        font-size: 0.85rem;
+        height: 2rem;
+    }
+
     .market-caps,
     .fee-settings,
     .summary,
     .results {
-        grid-template-columns: 1fr;
-        gap: 0.4rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.25rem;
+    }
+
+    .fee-settings {
+        padding: 0.35rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .metric {
+        padding: 0.35rem;
+    }
+
+    .metric label {
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .metric span {
+        font-size: 0.85rem;
+    }
+
+    .theme-toggle {
+        padding: 0.35rem;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        height: 2rem;
+    }
+
+    .creator-info {
+        padding: 0.35rem 0;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    .social-links {
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    .social-link {
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding: 0.5rem;
+        padding: 0.35rem;
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
-    input,
+    .subtitle {
+        font-size: 0.7rem;
+    }
+
+    input {
+        padding: 0.3rem;
+        font-size: 0.8rem;
+        height: 1.8rem;
+    }
+
+    .fee-settings input {
+        padding: 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    .metric {
+        padding: 0.3rem;
+    }
+
     .theme-toggle {
-        padding: 0.5rem;
+        height: 1.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-height: 700px) {
+    body {
+        padding: 0.3rem;
+    }
+
+    .header {
+        padding-bottom: 0.15rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 0.7rem;
+        margin-top: 0.1rem;
+    }
+
+    .main-content {
+        gap: 0.2rem;
+    }
+
+    input, 
+    .theme-toggle {
+        padding: 0.3rem;
+        height: 1.8rem;
+    }
+
+    .metric {
+        padding: 0.3rem;
+    }
+
+    .creator-info {
+        padding: 0.3rem 0;
+        font-size: 0.7rem;
+    }
+
+    .social-links {
+        margin-top: 0.2rem;
     }
 }
