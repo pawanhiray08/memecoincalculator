@@ -3,61 +3,69 @@ const results = {
     profitLoss: document.getElementById('profitLoss'),
     roi: document.getElementById('roi'),
     xReturn: document.getElementById('xReturn'),
-    breakEven: document.getElementById('breakEven'),
-    projectedProfit: document.getElementById('projectedProfit'),
     totalInvested: document.getElementById('totalInvested'),
     totalValue: document.getElementById('totalValue'),
     adjustedValue: document.getElementById('adjustedValue'),
-    totalFees: document.getElementById('totalFees')
+    totalFees: document.getElementById('totalFees'),
+    breakEven: document.getElementById('breakEven'),
+    projectedProfit: document.getElementById('projectedProfit')
 };
 
 // Format large numbers
 function formatNumber(num) {
-    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`;
-    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`;
-    return `$${num.toLocaleString()}`;
+    if (num === undefined || num === null || isNaN(num)) return '$0.00';
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(num);
 }
 
 // Calculate profit and update UI
 function calculateProfit() {
+    // Get input values
     const investment = parseFloat(document.getElementById('investment').value) || 0;
-    const buyMarketCap = parseFloat(document.getElementById('buyMarketCap').value) || 1;
-    const sellMarketCap = parseFloat(document.getElementById('sellMarketCap').value) || buyMarketCap;
-
-    // Get fee parameters
+    const buyMarketCap = parseFloat(document.getElementById('buyMarketCap').value) || 0;
+    const sellMarketCap = parseFloat(document.getElementById('sellMarketCap').value) || 0;
     const slippage = parseFloat(document.getElementById('slippage').value) || 0;
     const networkFee = parseFloat(document.getElementById('networkFee').value) || 0;
-    const solPrice = parseFloat(document.getElementById('solPrice').value) || 100;
-
-    // Calculate values
-    const totalSupply = 1e9; // Example: 1 billion tokens
-    const buyPrice = buyMarketCap / totalSupply;
-    const sellPrice = sellMarketCap / totalSupply;
-
-    const tokensOwned = investment / buyPrice;
-    const currentValue = tokensOwned * sellPrice;
+    const solPrice = parseFloat(document.getElementById('solPrice').value) || 0;
 
     // Calculate fees
-    const slippageAmount = currentValue * (slippage / 100);
+    const slippageFee = investment * (slippage / 100);
     const networkFeeUSD = networkFee * solPrice;
-    const totalFees = slippageAmount + networkFeeUSD;
+    const totalFees = slippageFee + networkFeeUSD;
 
-    // Calculate final values
-    const adjustedValue = currentValue - totalFees;
-    const profitLoss = adjustedValue - investment;
-    const roi = ((profitLoss / investment) * 100) || 0;
-    const returnMultiplier = (adjustedValue / investment) || 0;
+    // Calculate total invested including fees
+    const totalInvested = investment + totalFees;
 
-    // Update display with animations
-    updateMetric(results.profitLoss, `${profitLoss >= 0 ? '+' : '-'}$${Math.abs(profitLoss).toFixed(2)}`, profitLoss >= 0);
-    updateMetric(results.roi, `${roi.toFixed(2)}%`, roi >= 0);
-    updateMetric(results.xReturn, `${returnMultiplier.toFixed(2)}x`, returnMultiplier >= 1);
-    updateMetric(results.breakEven, formatNumber(buyMarketCap));
-    updateMetric(results.projectedProfit, `${formatNumber(buyMarketCap)} → ${formatNumber(sellMarketCap)}`);
-    updateMetric(results.totalInvested, `$${investment.toFixed(2)}`);
-    updateMetric(results.totalValue, `$${currentValue.toFixed(2)}`, currentValue > investment);
-    updateMetric(results.adjustedValue, `$${adjustedValue.toFixed(2)}`, adjustedValue > investment);
-    updateMetric(results.totalFees, `$${totalFees.toFixed(2)}`);
+    // Calculate value and profit/loss
+    let totalValue = 0;
+    let adjustedValue = 0;
+    let profitLoss = 0;
+    let roi = 0;
+    let xReturn = 0;
+
+    if (buyMarketCap > 0 && sellMarketCap > 0) {
+        const multiplier = sellMarketCap / buyMarketCap;
+        totalValue = investment * multiplier;
+        adjustedValue = totalValue - totalFees;
+        profitLoss = adjustedValue - totalInvested;
+        roi = ((adjustedValue - totalInvested) / totalInvested) * 100;
+        xReturn = adjustedValue / totalInvested;
+    }
+
+    // Update UI
+    updateMetric(results.totalInvested, formatNumber(totalInvested));
+    updateMetric(results.totalValue, formatNumber(totalValue));
+    updateMetric(results.adjustedValue, formatNumber(adjustedValue));
+    updateMetric(results.totalFees, formatNumber(totalFees));
+    updateMetric(results.profitLoss, formatNumber(profitLoss), profitLoss >= 0);
+    updateMetric(results.roi, roi.toFixed(2) + '%', roi >= 0);
+    updateMetric(results.xReturn, xReturn.toFixed(2) + 'x', xReturn >= 1);
+    updateMetric(results.breakEven, formatNumber(totalInvested));
+    updateMetric(results.projectedProfit, formatNumber(sellMarketCap - buyMarketCap));
 }
 
 // Update metric with animation
@@ -87,42 +95,38 @@ let currentThemeIndex = 0;
 
 function toggleTheme() {
     currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    const newTheme = themes[currentThemeIndex];
-    
-    // Remove all existing theme attributes
-    themes.forEach(theme => {
-        document.body.removeAttribute('data-theme');
-    });
-    
-    // Set new theme
-    if (newTheme !== 'default') {
-        document.body.setAttribute('data-theme', newTheme);
-    }
-
-    // Update button text
-    const themeButton = document.querySelector('.theme-toggle');
-    themeButton.textContent = `Theme: ${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)}`;
+    const theme = themes[currentThemeIndex];
+    document.documentElement.className = theme;
+    document.querySelector('.theme-toggle').textContent = `Theme: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
 }
 
-// Add input listeners
+// Add input listeners for real-time validation
 document.querySelectorAll('input').forEach(input => {
     input.addEventListener('input', () => {
-        calculateProfit();
-        input.parentElement.classList.add('active');
-    });
-
-    input.addEventListener('blur', () => {
-        input.parentElement.classList.remove('active');
+        // Remove non-numeric characters except decimal point
+        input.value = input.value.replace(/[^\d.-]/g, '');
+        
+        // Ensure only one decimal point
+        const parts = input.value.split('.');
+        if (parts.length > 2) {
+            input.value = parts[0] + '.' + parts.slice(1).join('');
+        }
+        
+        // Remove leading zeros
+        if (input.value.length > 1 && input.value[0] === '0' && input.value[1] !== '.') {
+            input.value = parseFloat(input.value).toString();
+        }
+        
+        // Prevent negative values
+        if (parseFloat(input.value) < 0) {
+            input.value = '0';
+        }
     });
 });
 
-// Theme toggle with animation
-document.querySelector('.theme-toggle').addEventListener('click', () => {
-    toggleTheme();
-    const button = document.querySelector('.theme-toggle');
-    button.style.transform = 'scale(0.95)';
-    setTimeout(() => button.style.transform = '', 150);
-});
+// Add button listeners
+document.querySelector('.calculate-btn').addEventListener('click', calculateProfit);
+document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
 
-// Initialize calculations
+// Initial calculation
 calculateProfit();
