@@ -270,25 +270,33 @@ function rgbToString(rgb) {
 
 // Add input listeners for real-time validation
 document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('input', () => {
-        // Remove non-numeric characters except decimal point
-        input.value = input.value.replace(/[^\d.-]/g, '');
+    input.addEventListener('input', (e) => {
+        let value = input.value;
+        
+        // Allow only numbers and decimal point
+        value = value.replace(/[^\d.]/g, '');
         
         // Ensure only one decimal point
-        const parts = input.value.split('.');
+        const parts = value.split('.');
         if (parts.length > 2) {
-            input.value = parts[0] + '.' + parts.slice(1).join('');
+            value = parts[0] + '.' + parts.slice(1).join('');
         }
         
-        // Remove leading zeros
-        if (input.value.length > 1 && input.value[0] === '0' && input.value[1] !== '.') {
-            input.value = parseFloat(input.value).toString();
+        // Handle leading zeros correctly
+        if (value.length > 1 && value[0] === '0' && value[1] !== '.') {
+            value = parseFloat(value).toString();
         }
         
-        // Prevent negative values
-        if (parseFloat(input.value) < 0) {
-            input.value = '0';
+        // Allow empty or partial decimal input
+        if (value === '' || value === '.') {
+            value = '0';
         }
+        
+        // Update input value
+        input.value = value;
+        
+        // Trigger calculation
+        calculateProfit();
     });
 });
 
