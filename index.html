@@ -16,42 +16,42 @@
 
     <main class="main-content">
         <div class="input-group">
-            <label>Initial Investment ($)</label>
-            <input type="number" id="investment" step="0.01" placeholder="Enter your investment amount">
+            <label for="investment">Initial Investment ($)</label>
+            <input type="text" id="investment" placeholder="Enter amount in USD">
         </div>
 
         <div class="market-caps">
             <div class="input-group">
-                <label>Buy Market Cap ($)</label>
-                <input type="number" id="buyMarketCap" step="1000000" placeholder="Market cap when bought">
+                <label for="buyMarketCap">Buy Market Cap ($)</label>
+                <input type="text" id="buyMarketCap" placeholder="Enter market cap">
             </div>
             
             <div class="input-group">
-                <label>Sell Market Cap ($)</label>
-                <input type="number" id="sellMarketCap" step="1000000" placeholder="Market cap when sold">
+                <label for="sellMarketCap">Sell Market Cap ($)</label>
+                <input type="text" id="sellMarketCap" placeholder="Enter market cap">
             </div>
         </div>
 
         <div class="fee-settings">
             <div class="input-group">
-                <label>Buy Fee (SOL)</label>
-                <input type="number" id="buyFee" value="0.001" step="0.0001" min="0" max="1">
+                <label for="buyFee">Buy Fee (SOL)</label>
+                <input type="text" id="buyFee" placeholder="Enter SOL amount">
             </div>
             <div class="input-group">
-                <label>Buy Bribe (SOL)</label>
-                <input type="number" id="buyBribe" value="0.001" step="0.0001" min="0" max="1">
+                <label for="buyBribe">Buy Bribe (SOL)</label>
+                <input type="text" id="buyBribe" placeholder="Enter SOL amount">
             </div>
             <div class="input-group">
-                <label>Sell Fee (SOL)</label>
-                <input type="number" id="sellFee" value="0.001" step="0.0001" min="0" max="1">
+                <label for="sellFee">Sell Fee (SOL)</label>
+                <input type="text" id="sellFee" placeholder="Enter SOL amount">
             </div>
             <div class="input-group">
-                <label>Sell Bribe (SOL)</label>
-                <input type="number" id="sellBribe" value="0.001" step="0.0001" min="0" max="1">
+                <label for="sellBribe">Sell Bribe (SOL)</label>
+                <input type="text" id="sellBribe" placeholder="Enter SOL amount">
             </div>
             <div class="input-group">
-                <label>SOL Price ($)</label>
-                <input type="number" id="solPrice" value="100" step="0.01">
+                <label for="solPrice">SOL Price ($)</label>
+                <input type="text" id="solPrice" placeholder="Enter SOL price">
             </div>
         </div>
 

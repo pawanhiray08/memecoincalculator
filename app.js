@@ -271,6 +271,8 @@ function rgbToString(rgb) {
 // Add input listeners for real-time validation
 document.querySelectorAll('input').forEach(input => {
     input.addEventListener('input', (e) => {
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
         let value = input.value;
         
         // Allow only numbers and decimal point
@@ -292,8 +294,16 @@ document.querySelectorAll('input').forEach(input => {
             value = '0';
         }
         
-        // Update input value
+        // Update input value while preserving cursor position
+        const oldLength = input.value.length;
         input.value = value;
+        const newLength = input.value.length;
+        const cursorOffset = newLength - oldLength;
+        
+        // Restore cursor position
+        if (input.type !== "number") {
+            input.setSelectionRange(start + cursorOffset, end + cursorOffset);
+        }
         
         // Trigger calculation
         calculateProfit();
