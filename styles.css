@@ -25,23 +25,32 @@
 }
 
 html, body {
-    height: 100vh;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    max-height: 100vh;
     overflow: hidden;
     max-width: 100%;
-    overflow-x: hidden;
 }
 
 body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.4;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, var(--background), var(--surface));
-    color: var(--text);
-    font-family: 'Inter', -apple-system, system-ui, sans-serif;
-    padding: 0.5rem;
+}
+
+.container {
+    width: 100%;
     height: 100vh;
-    box-sizing: border-box;
+    max-height: 100vh;
+    margin: 0 auto;
+    padding: min(0.5rem, 1.5vw);
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .header {
@@ -51,70 +60,56 @@ body {
 }
 
 h1 {
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
     text-align: center;
-    margin: min(1rem, 3vh) 0;
+    margin: 0.5rem 0;
     background: linear-gradient(to right, var(--secondary), var(--primary));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     font-weight: 800;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     text-align: center;
+    margin: 0.25rem 0;
     color: var(--text);
-    margin: 0.15rem 0;
     font-weight: 600;
     opacity: 0.9;
 }
 
-.container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: min(1rem, 3vw);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: min(1rem, 3vh);
-    position: relative;
-    overflow-x: hidden;
-}
-
 .main-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: min(0.5rem, 1.5vh);
-    width: 100%;
-    flex: 1;
-    min-height: 0;
-    margin-bottom: 1rem;
+    gap: min(0.4rem, 1vh);
+    padding: min(0.5rem, 1.5vw);
+    overflow-y: auto;
+    margin-bottom: 2.5rem;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: min(0.5rem, 1.5vh);
+    gap: min(0.3rem, 1vh);
     width: 100%;
     margin-bottom: min(0.25rem, 1vh);
 }
 
 label {
-    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
     display: block;
     color: var(--text);
-    margin-bottom: min(0.15rem, 0.5vh);
+    margin-bottom: 0;
     font-weight: 600;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 input {
     width: 100%;
-    padding: clamp(0.4rem, 2vw, 0.8rem);
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    padding: min(0.3rem, 1vh) min(0.5rem, 1.5vw);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     background: var(--surface);
     border: 2px solid var(--accent);
     border-radius: 4px;
@@ -122,6 +117,7 @@ input {
     font-weight: 500;
     -webkit-appearance: none;
     appearance: none;
+    height: min(2rem, 6vh);
 }
 
 input:focus {
@@ -131,8 +127,8 @@ input:focus {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-    gap: min(1rem, 3vw);
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: min(0.5rem, 1.5vw);
     width: 100%;
 }
 
@@ -164,21 +160,22 @@ input:focus {
 
 .metrics {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
-    gap: min(0.5rem, 1.5vw);
+    grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
+    gap: min(0.4rem, 1.2vw);
+    margin-top: min(0.3rem, 1vh);
     width: 100%;
 }
 
 .metric {
     background: var(--surface);
-    padding: clamp(0.4rem, 2vw, 0.8rem);
+    padding: min(0.4rem, 1.2vh);
     border-radius: 4px;
     border: 1px solid var(--accent);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .metric label {
-    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
     margin-bottom: min(0.1rem, 0.3vh);
     color: var(--text);
     font-weight: 600;
@@ -186,7 +183,7 @@ input:focus {
 }
 
 .metric span {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     font-weight: 700;
     color: var(--text);
     display: block;
@@ -200,18 +197,18 @@ input:focus {
 
 .calculate-btn,
 .theme-toggle {
-    padding: clamp(0.5rem, 2vw, 0.8rem);
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    padding: min(0.4rem, 1.2vh);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: min(0.2rem, 0.6vh) 0;
+    margin: min(0.2rem, 0.6vh) auto;
     font-weight: 600;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 300px;
-    margin: 0 auto;
+    height: min(2.2rem, 6.5vh);
 }
 
 .calculate-btn {
@@ -225,18 +222,15 @@ input:focus {
 }
 
 .creator-info {
-    text-align: center;
-    padding: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text);
-    opacity: 0.8;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 0.3rem;
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
     background: var(--surface);
     border-top: 1px solid var(--accent);
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .creator-info a {
@@ -285,24 +279,41 @@ input:focus {
 
 @media (max-width: 480px) {
     .container {
-        padding: 0.5rem;
+        padding: 0.3rem;
     }
     
     .grid {
         grid-template-columns: 1fr;
+        gap: 0.3rem;
     }
     
     .metrics {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.3rem;
     }
     
     .metric {
-        padding: 0.4rem;
+        padding: 0.3rem;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+        margin: 0.3rem 0;
+    }
+    
+    .subtitle {
+        font-size: 0.8rem;
+        margin: 0.2rem 0;
+    }
+    
+    .main-content {
+        gap: 0.3rem;
+        margin-bottom: 2rem;
     }
     
     .creator-info {
-        padding: 0.4rem;
-        font-size: 0.8rem;
+        padding: 0.25rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -358,5 +369,40 @@ input:focus {
     .calculate-btn,
     .theme-toggle {
         min-height: 44px; /* Better touch targets */
+    }
+}
+
+@media (max-height: 600px) {
+    .container {
+        padding: 0.2rem;
+    }
+    
+    h1 {
+        font-size: 1rem;
+        margin: 0.2rem 0;
+    }
+    
+    .subtitle {
+        font-size: 0.7rem;
+        margin: 0.15rem 0;
+    }
+    
+    .main-content {
+        gap: 0.2rem;
+        margin-bottom: 1.8rem;
+    }
+    
+    input {
+        height: 1.8rem;
+    }
+    
+    .calculate-btn,
+    .theme-toggle {
+        height: 2rem;
+    }
+    
+    .creator-info {
+        padding: 0.2rem;
+        font-size: 0.65rem;
     }
 }
