@@ -1,13 +1,13 @@
 /* Modern UI Theme with Black/Blue/Golden */
 :root {
-    /* Default Hacker Theme */
-    --background: rgb(1, 22, 39);
-    --surface: rgb(5, 34, 57);
-    --primary: rgb(0, 255, 198);
-    --secondary: rgb(33, 211, 255);
-    --accent: rgb(0, 183, 255);
-    --text: rgb(240, 248, 255);
-    --text-muted: rgb(154, 177, 198);
+    /* Default Cyberpunk Theme */
+    --background: rgb(13, 13, 23);
+    --surface: rgb(23, 23, 38);
+    --primary: rgb(0, 255, 159);
+    --secondary: rgb(255, 0, 255);
+    --accent: rgb(0, 255, 255);
+    --text: rgb(235, 235, 235);
+    --text-muted: rgb(190, 190, 190);
 
     /* Transitions */
     --transition-speed: 0.3s;

@@ -145,18 +145,6 @@ function getTransparentColor(color, alpha) {
 // Theme data with RGB colors
 const themes = [
     {
-        name: 'hacker',
-        colors: {
-            background: [1, 22, 39],
-            surface: [5, 34, 57],
-            primary: [0, 255, 198],
-            secondary: [33, 211, 255],
-            accent: [0, 183, 255],
-            text: [240, 248, 255],
-            textMuted: [154, 177, 198]
-        }
-    },
-    {
         name: 'cyberpunk',
         colors: {
             background: [13, 13, 23],
@@ -166,6 +154,18 @@ const themes = [
             accent: [0, 255, 255],
             text: [235, 235, 235],
             textMuted: [190, 190, 190]
+        }
+    },
+    {
+        name: 'hacker',
+        colors: {
+            background: [1, 22, 39],
+            surface: [5, 34, 57],
+            primary: [0, 255, 198],
+            secondary: [33, 211, 255],
+            accent: [0, 183, 255],
+            text: [240, 248, 255],
+            textMuted: [154, 177, 198]
         }
     },
     {
@@ -231,11 +231,12 @@ const themes = [
 ];
 
 let currentThemeIndex = 0;
-let defaultThemeIndex = 0; // Store default theme index
+let defaultThemeIndex = 0; // Cyberpunk is now at index 0
 
 // Set theme
 function applyTheme(themeIndex) {
     const theme = themes[themeIndex];
+    // Update theme colors
     Object.keys(theme.colors).forEach(key => {
         document.documentElement.style.setProperty(
             `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
