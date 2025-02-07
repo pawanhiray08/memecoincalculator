@@ -242,6 +242,10 @@ function applyTheme(themeIndex) {
             rgbToString(theme.colors[key])
         );
     });
+    
+    // Update theme button text
+    const themeButton = document.querySelector('.theme-toggle');
+    themeButton.textContent = theme.name.charAt(0).toUpperCase() + theme.name.slice(1) + ' Theme';
 }
 
 // Initialize with default theme
