@@ -155,16 +155,41 @@ const themes = [
             text: [33, 33, 33],
             textMuted: [87, 87, 87]
         }
+    },
+    {
+        name: 'dark',
+        colors: {
+            background: [18, 18, 18],
+            surface: [30, 30, 30],
+            primary: [144, 202, 249],
+            secondary: [100, 181, 246],
+            accent: [66, 165, 245],
+            text: [255, 255, 255],
+            textMuted: [200, 200, 200]
+        }
     }
 ];
 
+let currentThemeIndex = 0;
+
 // Set initial theme
-const currentTheme = themes[0];
-Object.keys(currentTheme.colors).forEach(key => {
-    document.documentElement.style.setProperty(
-        `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
-        rgbToString(currentTheme.colors[key])
-    );
+function applyTheme(themeIndex) {
+    const theme = themes[themeIndex];
+    Object.keys(theme.colors).forEach(key => {
+        document.documentElement.style.setProperty(
+            `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
+            rgbToString(theme.colors[key])
+        );
+    });
+}
+
+// Initialize with first theme
+applyTheme(currentThemeIndex);
+
+// Theme toggle button handler
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    applyTheme(currentThemeIndex);
 });
 
 // Convert RGB array to CSS color string
