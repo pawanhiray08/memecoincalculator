@@ -74,6 +74,7 @@ h1 {
     padding: 0;
     flex: 1;
     min-height: 0;
+    margin-bottom: 1rem;
 }
 
 .input-group {
@@ -185,22 +186,27 @@ input:focus {
 
 .creator-info {
     text-align: center;
-    padding: 1rem 0;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: auto;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.8;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--accent);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .creator-info a {
     color: var(--primary);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.2s;
 }
 
 .creator-info a:hover {
-    color: var(--secondary);
+    text-decoration: underline;
 }
 
 .social-links {

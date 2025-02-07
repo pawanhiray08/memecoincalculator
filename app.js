@@ -142,7 +142,7 @@ function getTransparentColor(color, alpha) {
     return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${Math.min(alpha * 1.2, 1)})`;
 }
 
-// Theme data with RGB colors for smooth interpolation
+// Theme data with RGB colors
 const themes = [
     {
         name: 'light',
@@ -155,152 +155,22 @@ const themes = [
             text: [33, 33, 33],
             textMuted: [87, 87, 87]
         }
-    },
-    {
-        name: 'dark',
-        colors: {
-            background: [18, 18, 18],
-            surface: [30, 30, 30],
-            primary: [144, 202, 249],
-            secondary: [100, 181, 246],
-            accent: [66, 165, 245],
-            text: [255, 255, 255],
-            textMuted: [200, 200, 200]
-        }
-    },
-    {
-        name: 'cyberpunk',
-        colors: {
-            background: [13, 13, 23],
-            surface: [23, 23, 38],
-            primary: [0, 255, 159],
-            secondary: [255, 0, 255],
-            accent: [0, 255, 255],
-            text: [235, 235, 235],
-            textMuted: [190, 190, 190]
-        }
-    },
-    {
-        name: 'sunset',
-        colors: {
-            background: [35, 15, 34],
-            surface: [71, 8, 40],
-            primary: [255, 159, 28],
-            secondary: [238, 69, 64],
-            accent: [199, 44, 65],
-            text: [255, 255, 255],
-            textMuted: [220, 220, 220]
-        }
-    },
-    {
-        name: 'forest',
-        colors: {
-            background: [22, 57, 40],
-            surface: [40, 96, 69],
-            primary: [169, 233, 198],
-            secondary: [136, 218, 177],
-            accent: [84, 165, 128],
-            text: [255, 255, 255],
-            textMuted: [220, 220, 220]
-        }
-    },
-    {
-        name: 'ocean',
-        colors: {
-            background: [2, 3, 84],
-            surface: [2, 52, 128],
-            primary: [164, 244, 255],
-            secondary: [0, 200, 236],
-            accent: [0, 139, 202],
-            text: [255, 255, 255],
-            textMuted: [220, 220, 220]
-        }
     }
 ];
 
-let currentThemeIndex = 0;
-let transitionProgress = 0;
-const transitionDuration = 30; // 30 seconds for a full theme transition
-
-function updateTheme() {
-    const currentTheme = themes[currentThemeIndex];
-    const nextTheme = themes[(currentThemeIndex + 1) % themes.length];
-    
-    // Interpolate background color first
-    const interpolatedBackground = lerpColor(
-        currentTheme.colors.background,
-        nextTheme.colors.background,
-        transitionProgress
+// Set initial theme
+const currentTheme = themes[0];
+Object.keys(currentTheme.colors).forEach(key => {
+    document.documentElement.style.setProperty(
+        `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
+        rgbToString(currentTheme.colors[key])
     );
-
-    // Get appropriate text colors based on background with increased contrast
-    const textColor = getContrastingTextColor(
-        interpolatedBackground[0],
-        interpolatedBackground[1],
-        interpolatedBackground[2]
-    );
-    
-    // Make muted text more visible while maintaining distinction
-    const textMutedColor = textColor.map(c => 
-        Math.round(lerp(c, interpolatedBackground[c], 0.25))
-    );
-
-    // Update all color variables with interpolated values
-    Object.keys(currentTheme.colors).forEach(key => {
-        const currentColor = currentTheme.colors[key];
-        const nextColor = nextTheme.colors[key];
-        let interpolatedColor;
-
-        if (key === 'text') {
-            interpolatedColor = textColor;
-        } else if (key === 'textMuted') {
-            interpolatedColor = textMutedColor;
-        } else {
-            interpolatedColor = lerpColor(currentColor, nextColor, transitionProgress);
-        }
-
-        document.documentElement.style.setProperty(
-            `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
-            rgbToString(interpolatedColor)
-        );
-    });
-
-    // Update transition progress
-    transitionProgress += 1 / (60 * transitionDuration);
-    
-    if (transitionProgress >= 1) {
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        transitionProgress = 0;
-    }
-}
-
-// Linear interpolation between two numbers
-function lerp(start, end, t) {
-    return start * (1 - t) + end * t;
-}
-
-// Interpolate between two colors
-function lerpColor(color1, color2, t) {
-    return [
-        Math.round(lerp(color1[0], color2[0], t)),
-        Math.round(lerp(color1[1], color2[1], t)),
-        Math.round(lerp(color1[2], color2[2], t))
-    ];
-}
+});
 
 // Convert RGB array to CSS color string
 function rgbToString(rgb) {
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
-
-// Start smooth theme cycling
-const themeInterval = setInterval(updateTheme, 1000 / 60); // 60fps updates
-
-// Manual theme toggle now smoothly transitions to next theme
-document.querySelector('.theme-toggle').addEventListener('click', () => {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    transitionProgress = 0;
-});
 
 // Add input listeners for real-time validation
 document.querySelectorAll('input').forEach(input => {
