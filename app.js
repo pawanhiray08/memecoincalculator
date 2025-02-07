@@ -28,14 +28,12 @@ function calculateProfit() {
     const investment = parseFloat(document.getElementById('investment').value) || 0;
     const buyMarketCap = parseFloat(document.getElementById('buyMarketCap').value) || 0;
     const sellMarketCap = parseFloat(document.getElementById('sellMarketCap').value) || 0;
-    const slippage = parseFloat(document.getElementById('slippage').value) || 0;
     const buyFee = parseFloat(document.getElementById('buyFee').value) || 0;
     const sellFee = parseFloat(document.getElementById('sellFee').value) || 0;
 
-    // Calculate fees
-    const slippageFee = investment * (slippage / 100);
-    const buyFeeAmount = investment * (buyFee / 100);
-    const totalBuyFees = slippageFee + buyFeeAmount;
+    // Calculate buy fees
+    const buyFeeAmount = investment * buyFee;
+    const totalBuyFees = buyFeeAmount;
 
     // Calculate total invested including buy fees
     const totalInvested = investment + totalBuyFees;
@@ -50,7 +48,7 @@ function calculateProfit() {
     if (buyMarketCap > 0 && sellMarketCap > 0) {
         const multiplier = sellMarketCap / buyMarketCap;
         totalValue = investment * multiplier;
-        const sellFeeAmount = totalValue * (sellFee / 100);
+        const sellFeeAmount = totalValue * sellFee;
         adjustedValue = totalValue - sellFeeAmount;
         profitLoss = adjustedValue - totalInvested;
         roi = ((adjustedValue - totalInvested) / totalInvested) * 100;
@@ -61,7 +59,7 @@ function calculateProfit() {
     updateMetric(results.totalInvested, formatNumber(totalInvested));
     updateMetric(results.totalValue, formatNumber(totalValue));
     updateMetric(results.adjustedValue, formatNumber(adjustedValue));
-    updateMetric(results.totalFees, formatNumber(totalBuyFees + (totalValue * (sellFee / 100))));
+    updateMetric(results.totalFees, formatNumber(totalBuyFees + (totalValue * sellFee)));
     updateMetric(results.profitLoss, formatNumber(profitLoss), profitLoss >= 0);
     updateMetric(results.roi, roi.toFixed(2) + '%', roi >= 0);
     updateMetric(results.xReturn, xReturn.toFixed(2) + 'x', xReturn >= 1);
