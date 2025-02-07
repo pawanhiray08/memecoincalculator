@@ -1,13 +1,16 @@
 /* Modern UI Theme with Black/Blue/Golden */
 :root {
-    /* Default theme colors will be overridden by JavaScript */
-    --background: rgb(255, 255, 255);
-    --surface: rgb(245, 245, 245);
-    --primary: rgb(33, 150, 243);
-    --secondary: rgb(25, 118, 210);
-    --accent: rgb(100, 181, 246);
-    --text: rgb(33, 33, 33);
-    --text-muted: rgb(117, 117, 117);
+    /* Default Hacker Theme */
+    --background: rgb(1, 22, 39);
+    --surface: rgb(5, 34, 57);
+    --primary: rgb(0, 255, 198);
+    --secondary: rgb(33, 211, 255);
+    --accent: rgb(0, 183, 255);
+    --text: rgb(240, 248, 255);
+    --text-muted: rgb(154, 177, 198);
+
+    /* Transitions */
+    --transition-speed: 0.3s;
 }
 
 /* Reset and Base Styles */

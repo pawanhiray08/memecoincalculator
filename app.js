@@ -145,27 +145,15 @@ function getTransparentColor(color, alpha) {
 // Theme data with RGB colors
 const themes = [
     {
-        name: 'light',
+        name: 'hacker',
         colors: {
-            background: [245, 245, 245],
-            surface: [255, 255, 255],
-            primary: [25, 118, 210],
-            secondary: [33, 150, 243],
-            accent: [100, 181, 246],
-            text: [33, 33, 33],
-            textMuted: [87, 87, 87]
-        }
-    },
-    {
-        name: 'dark',
-        colors: {
-            background: [18, 18, 18],
-            surface: [30, 30, 30],
-            primary: [144, 202, 249],
-            secondary: [100, 181, 246],
-            accent: [66, 165, 245],
-            text: [255, 255, 255],
-            textMuted: [200, 200, 200]
+            background: [1, 22, 39],
+            surface: [5, 34, 57],
+            primary: [0, 255, 198],
+            secondary: [33, 211, 255],
+            accent: [0, 183, 255],
+            text: [240, 248, 255],
+            textMuted: [154, 177, 198]
         }
     },
     {
@@ -229,30 +217,6 @@ const themes = [
         }
     },
     {
-        name: 'desert',
-        colors: {
-            background: [251, 242, 233],
-            surface: [255, 248, 240],
-            primary: [198, 123, 48],
-            secondary: [217, 160, 102],
-            accent: [240, 187, 134],
-            text: [66, 40, 14],
-            textMuted: [121, 85, 50]
-        }
-    },
-    {
-        name: 'mint',
-        colors: {
-            background: [231, 245, 241],
-            surface: [255, 255, 255],
-            primary: [46, 196, 182],
-            secondary: [86, 219, 208],
-            accent: [130, 237, 229],
-            text: [33, 53, 50],
-            textMuted: [76, 122, 116]
-        }
-    },
-    {
         name: 'galaxy',
         colors: {
             background: [16, 6, 37],
@@ -267,8 +231,9 @@ const themes = [
 ];
 
 let currentThemeIndex = 0;
+let defaultThemeIndex = 0; // Store default theme index
 
-// Set initial theme
+// Set theme
 function applyTheme(themeIndex) {
     const theme = themes[themeIndex];
     Object.keys(theme.colors).forEach(key => {
@@ -279,12 +244,17 @@ function applyTheme(themeIndex) {
     });
 }
 
-// Initialize with first theme
-applyTheme(currentThemeIndex);
+// Initialize with default theme
+applyTheme(defaultThemeIndex);
 
 // Theme toggle button handler
 document.querySelector('.theme-toggle').addEventListener('click', () => {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    // Reset to default theme if we're on the last theme
+    if (currentThemeIndex === themes.length - 1) {
+        currentThemeIndex = defaultThemeIndex;
+    } else {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    }
     applyTheme(currentThemeIndex);
 });
 
