@@ -8,6 +8,7 @@ const results = {
     adjustedValue: document.getElementById('adjustedValue'),
     totalFees: document.getElementById('totalFees'),
     totalFeesSOL: document.getElementById('totalFeesSOL'),
+    totalBribesSOL: document.getElementById('totalBribesSOL'),
     breakEven: document.getElementById('breakEven'),
     projectedProfit: document.getElementById('projectedProfit')
 };
@@ -37,14 +38,18 @@ function calculateProfit() {
     const sellMarketCap = parseFloat(document.getElementById('sellMarketCap').value) || 0;
     const buyFee = parseFloat(document.getElementById('buyFee').value) || 0;
     const sellFee = parseFloat(document.getElementById('sellFee').value) || 0;
+    const buyBribe = parseFloat(document.getElementById('buyBribe').value) || 0;
+    const sellBribe = parseFloat(document.getElementById('sellBribe').value) || 0;
     const solPrice = parseFloat(document.getElementById('solPrice').value) || 0;
 
-    // Calculate buy fees in SOL and USD
+    // Calculate buy fees and bribes in SOL and USD
     const buyFeeSOL = buyFee;
+    const buyBribeSOL = buyBribe;
     const buyFeeUSD = buyFeeSOL * solPrice;
-    const totalBuyFees = buyFeeUSD;
+    const buyBribeUSD = buyBribeSOL * solPrice;
+    const totalBuyFees = buyFeeUSD + buyBribeUSD;
 
-    // Calculate total invested including buy fees
+    // Calculate total invested including buy fees and bribes
     const totalInvested = investment + totalBuyFees;
 
     // Calculate value and profit/loss
@@ -54,29 +59,37 @@ function calculateProfit() {
     let roi = 0;
     let xReturn = 0;
     let sellFeeSOL = 0;
+    let sellBribeSOL = 0;
     let sellFeeUSD = 0;
+    let sellBribeUSD = 0;
 
     if (buyMarketCap > 0 && sellMarketCap > 0) {
         const multiplier = sellMarketCap / buyMarketCap;
         totalValue = investment * multiplier;
         sellFeeSOL = sellFee;
+        sellBribeSOL = sellBribe;
         sellFeeUSD = sellFeeSOL * solPrice;
-        adjustedValue = totalValue - sellFeeUSD;
+        sellBribeUSD = sellBribeSOL * solPrice;
+        adjustedValue = totalValue - sellFeeUSD - sellBribeUSD;
         profitLoss = adjustedValue - totalInvested;
         roi = ((adjustedValue - totalInvested) / totalInvested) * 100;
         xReturn = adjustedValue / totalInvested;
     }
 
-    // Calculate total fees in both SOL and USD
+    // Calculate total fees and bribes in both SOL and USD
     const totalFeesSOL = buyFeeSOL + sellFeeSOL;
+    const totalBribesSOL = buyBribeSOL + sellBribeSOL;
     const totalFeesUSD = buyFeeUSD + sellFeeUSD;
+    const totalBribesUSD = buyBribeUSD + sellBribeUSD;
+    const totalCostsUSD = totalFeesUSD + totalBribesUSD;
 
     // Update UI
     updateMetric(results.totalInvested, formatNumber(totalInvested));
     updateMetric(results.totalValue, formatNumber(totalValue));
     updateMetric(results.adjustedValue, formatNumber(adjustedValue));
-    updateMetric(results.totalFees, formatNumber(totalFeesUSD));
+    updateMetric(results.totalFees, formatNumber(totalCostsUSD));
     updateMetric(results.totalFeesSOL, formatSOL(totalFeesSOL));
+    updateMetric(results.totalBribesSOL, formatSOL(totalBribesSOL));
     updateMetric(results.profitLoss, formatNumber(profitLoss), profitLoss >= 0);
     updateMetric(results.roi, roi.toFixed(2) + '%', roi >= 0);
     updateMetric(results.xReturn, xReturn.toFixed(2) + 'x', xReturn >= 1);
