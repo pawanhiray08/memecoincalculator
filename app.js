@@ -167,6 +167,102 @@ const themes = [
             text: [255, 255, 255],
             textMuted: [200, 200, 200]
         }
+    },
+    {
+        name: 'cyberpunk',
+        colors: {
+            background: [13, 13, 23],
+            surface: [23, 23, 38],
+            primary: [0, 255, 159],
+            secondary: [255, 0, 255],
+            accent: [0, 255, 255],
+            text: [235, 235, 235],
+            textMuted: [190, 190, 190]
+        }
+    },
+    {
+        name: 'sunset',
+        colors: {
+            background: [35, 15, 34],
+            surface: [71, 8, 40],
+            primary: [255, 159, 28],
+            secondary: [238, 69, 64],
+            accent: [199, 44, 65],
+            text: [255, 255, 255],
+            textMuted: [220, 220, 220]
+        }
+    },
+    {
+        name: 'forest',
+        colors: {
+            background: [22, 57, 40],
+            surface: [40, 96, 69],
+            primary: [169, 233, 198],
+            secondary: [136, 218, 177],
+            accent: [84, 165, 128],
+            text: [255, 255, 255],
+            textMuted: [220, 220, 220]
+        }
+    },
+    {
+        name: 'ocean',
+        colors: {
+            background: [2, 3, 84],
+            surface: [2, 52, 128],
+            primary: [164, 244, 255],
+            secondary: [0, 200, 236],
+            accent: [0, 139, 202],
+            text: [255, 255, 255],
+            textMuted: [220, 220, 220]
+        }
+    },
+    {
+        name: 'neon',
+        colors: {
+            background: [20, 20, 20],
+            surface: [30, 30, 30],
+            primary: [255, 0, 128],
+            secondary: [0, 255, 255],
+            accent: [255, 0, 255],
+            text: [255, 255, 255],
+            textMuted: [200, 200, 200]
+        }
+    },
+    {
+        name: 'desert',
+        colors: {
+            background: [251, 242, 233],
+            surface: [255, 248, 240],
+            primary: [198, 123, 48],
+            secondary: [217, 160, 102],
+            accent: [240, 187, 134],
+            text: [66, 40, 14],
+            textMuted: [121, 85, 50]
+        }
+    },
+    {
+        name: 'mint',
+        colors: {
+            background: [231, 245, 241],
+            surface: [255, 255, 255],
+            primary: [46, 196, 182],
+            secondary: [86, 219, 208],
+            accent: [130, 237, 229],
+            text: [33, 53, 50],
+            textMuted: [76, 122, 116]
+        }
+    },
+    {
+        name: 'galaxy',
+        colors: {
+            background: [16, 6, 37],
+            surface: [26, 16, 47],
+            primary: [171, 123, 255],
+            secondary: [123, 31, 255],
+            accent: [209, 182, 255],
+            text: [255, 255, 255],
+            textMuted: [200, 200, 220]
+        }
     }
 ];
 
