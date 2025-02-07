@@ -7,6 +7,7 @@ const results = {
     totalValue: document.getElementById('totalValue'),
     adjustedValue: document.getElementById('adjustedValue'),
     totalFees: document.getElementById('totalFees'),
+    totalFeesSOL: document.getElementById('totalFeesSOL'),
     breakEven: document.getElementById('breakEven'),
     projectedProfit: document.getElementById('projectedProfit')
 };
@@ -22,6 +23,12 @@ function formatNumber(num) {
     }).format(num);
 }
 
+// Format SOL numbers
+function formatSOL(num) {
+    if (num === undefined || num === null || isNaN(num)) return '0.000 SOL';
+    return num.toFixed(3) + ' SOL';
+}
+
 // Calculate profit and update UI
 function calculateProfit() {
     // Get input values
@@ -30,10 +37,12 @@ function calculateProfit() {
     const sellMarketCap = parseFloat(document.getElementById('sellMarketCap').value) || 0;
     const buyFee = parseFloat(document.getElementById('buyFee').value) || 0;
     const sellFee = parseFloat(document.getElementById('sellFee').value) || 0;
+    const solPrice = parseFloat(document.getElementById('solPrice').value) || 0;
 
-    // Calculate buy fees
-    const buyFeeAmount = investment * buyFee;
-    const totalBuyFees = buyFeeAmount;
+    // Calculate buy fees in SOL and USD
+    const buyFeeSOL = buyFee;
+    const buyFeeUSD = buyFeeSOL * solPrice;
+    const totalBuyFees = buyFeeUSD;
 
     // Calculate total invested including buy fees
     const totalInvested = investment + totalBuyFees;
@@ -44,22 +53,30 @@ function calculateProfit() {
     let profitLoss = 0;
     let roi = 0;
     let xReturn = 0;
+    let sellFeeSOL = 0;
+    let sellFeeUSD = 0;
 
     if (buyMarketCap > 0 && sellMarketCap > 0) {
         const multiplier = sellMarketCap / buyMarketCap;
         totalValue = investment * multiplier;
-        const sellFeeAmount = totalValue * sellFee;
-        adjustedValue = totalValue - sellFeeAmount;
+        sellFeeSOL = sellFee;
+        sellFeeUSD = sellFeeSOL * solPrice;
+        adjustedValue = totalValue - sellFeeUSD;
         profitLoss = adjustedValue - totalInvested;
         roi = ((adjustedValue - totalInvested) / totalInvested) * 100;
         xReturn = adjustedValue / totalInvested;
     }
 
+    // Calculate total fees in both SOL and USD
+    const totalFeesSOL = buyFeeSOL + sellFeeSOL;
+    const totalFeesUSD = buyFeeUSD + sellFeeUSD;
+
     // Update UI
     updateMetric(results.totalInvested, formatNumber(totalInvested));
     updateMetric(results.totalValue, formatNumber(totalValue));
     updateMetric(results.adjustedValue, formatNumber(adjustedValue));
-    updateMetric(results.totalFees, formatNumber(totalBuyFees + (totalValue * sellFee)));
+    updateMetric(results.totalFees, formatNumber(totalFeesUSD));
+    updateMetric(results.totalFeesSOL, formatSOL(totalFeesSOL));
     updateMetric(results.profitLoss, formatNumber(profitLoss), profitLoss >= 0);
     updateMetric(results.roi, roi.toFixed(2) + '%', roi >= 0);
     updateMetric(results.xReturn, xReturn.toFixed(2) + 'x', xReturn >= 1);

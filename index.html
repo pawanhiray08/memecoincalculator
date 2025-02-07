@@ -34,11 +34,11 @@
 
         <div class="fee-settings">
             <div class="input-group">
-                <label>Buy Fee (decimal)</label>
+                <label>Buy Fee (SOL)</label>
                 <input type="number" id="buyFee" value="0.001" step="0.0001" min="0" max="1">
             </div>
             <div class="input-group">
-                <label>Sell Fee (decimal)</label>
+                <label>Sell Fee (SOL)</label>
                 <input type="number" id="sellFee" value="0.001" step="0.0001" min="0" max="1">
             </div>
             <div class="input-group">
@@ -61,8 +61,12 @@
                 <span id="adjustedValue">$0.00</span>
             </div>
             <div class="metric">
-                <label>Total Fees:</label>
+                <label>Total Fees (USD):</label>
                 <span id="totalFees">$0.00</span>
+            </div>
+            <div class="metric">
+                <label>Total Fees (SOL):</label>
+                <span id="totalFeesSOL">0.000 SOL</span>
             </div>
         </div>
 
