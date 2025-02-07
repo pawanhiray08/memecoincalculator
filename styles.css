@@ -116,11 +116,15 @@
     box-sizing: border-box;
 }
 
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: auto;
+    overflow: hidden;
 }
 
 body {
@@ -129,17 +133,19 @@ body {
     background: linear-gradient(135deg, var(--background), var(--surface));
     color: var(--text);
     font-family: 'Inter', -apple-system, system-ui, sans-serif;
-    padding: 0.75rem;
+    padding: 0.5rem;
     height: 100vh;
+    box-sizing: border-box;
 }
 
 .header {
     text-align: center;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.35rem;
+    flex-shrink: 0;
 }
 
 h1 {
-    font-size: 1.6rem;
+    font-size: min(1.6rem, 5vh);
     margin: 0;
     background: linear-gradient(to right, var(--secondary), var(--primary));
     -webkit-background-clip: text;
@@ -148,7 +154,7 @@ h1 {
 }
 
 .subtitle {
-    font-size: 0.9rem;
+    font-size: min(0.9rem, 2.5vh);
     color: var(--accent);
     margin: 0.15rem 0;
 }
@@ -156,33 +162,33 @@ h1 {
 .main-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: min(0.5rem, 1.5vh);
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0;
     flex: 1;
-    overflow-y: auto;
+    min-height: 0;
 }
 
 .input-group {
-    margin-bottom: 0.25rem;
+    margin-bottom: min(0.25rem, 1vh);
 }
 
 label {
     display: block;
-    font-size: 0.9rem;
+    font-size: min(0.85rem, 2.2vh);
     color: var(--accent);
-    margin-bottom: 0.15rem;
+    margin-bottom: min(0.15rem, 0.5vh);
 }
 
 input {
     width: 100%;
-    padding: 0.5rem;
-    font-size: 0.95rem;
+    padding: min(0.4rem, 1.2vh);
+    font-size: min(0.9rem, 2.3vh);
     background: var(--background);
     border: 1px solid var(--accent);
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--text);
 }
 
@@ -192,11 +198,13 @@ input:focus {
 }
 
 .market-caps,
-.fee-settings {
+.fee-settings,
+.summary,
+.results {
     display: grid;
-    gap: 0.5rem;
+    gap: min(0.35rem, 1vh);
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: min(0.35rem, 1vh);
 }
 
 .market-caps {
@@ -205,14 +213,6 @@ input:focus {
 
 .fee-settings {
     grid-template-columns: repeat(3, 1fr);
-}
-
-.summary,
-.results {
-    display: grid;
-    gap: 0.5rem;
-    width: 100%;
-    margin-bottom: 0.5rem;
 }
 
 .summary {
@@ -225,18 +225,18 @@ input:focus {
 
 .metric {
     background: var(--surface);
-    padding: 0.5rem;
-    border-radius: 6px;
+    padding: min(0.4rem, 1.2vh);
+    border-radius: 4px;
 }
 
 .metric label {
-    font-size: 0.85rem;
-    margin-bottom: 0.15rem;
+    font-size: min(0.8rem, 2vh);
+    margin-bottom: min(0.1rem, 0.3vh);
     color: var(--text-muted);
 }
 
 .metric span {
-    font-size: 1rem;
+    font-size: min(0.9rem, 2.3vh);
     font-weight: 600;
     color: var(--text);
     display: block;
@@ -249,12 +249,12 @@ input:focus {
 
 .calculate-btn,
 .theme-toggle {
-    padding: 0.6rem;
-    font-size: 0.95rem;
+    padding: min(0.5rem, 1.5vh);
+    font-size: min(0.9rem, 2.3vh);
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    margin: 0.25rem 0;
+    margin: min(0.2rem, 0.6vh) 0;
     font-weight: 500;
 }
 
@@ -335,7 +335,7 @@ input:focus {
 
 @media (max-width: 480px) {
     body {
-        padding: 0.5rem;
+        padding: min(0.35rem, 1vh);
     }
 
     .market-caps,
@@ -343,22 +343,14 @@ input:focus {
     .summary,
     .results {
         grid-template-columns: 1fr;
-        gap: 0.35rem;
+        gap: min(0.25rem, 0.8vh);
     }
 
     input {
-        padding: 0.4rem;
+        padding: min(0.35rem, 1vh);
     }
 
     .metric {
-        padding: 0.4rem;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
-
-    .subtitle {
-        font-size: 0.8rem;
+        padding: min(0.35rem, 1vh);
     }
 }
