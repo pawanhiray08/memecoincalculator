@@ -106,21 +106,137 @@ function updateMetric(element, value, isPositive = true) {
     }
 }
 
-// Theme cycling
-const themes = ['light', 'dark', 'cyberpunk', 'sunset', 'forest', 'ocean'];
-let currentThemeIndex = 0;
+// Theme data with RGB colors for smooth interpolation
+const themes = [
+    {
+        name: 'light',
+        colors: {
+            background: [255, 255, 255],
+            surface: [245, 245, 245],
+            primary: [33, 150, 243],
+            secondary: [25, 118, 210],
+            accent: [100, 181, 246],
+            text: [33, 33, 33],
+            textMuted: [117, 117, 117]
+        }
+    },
+    {
+        name: 'dark',
+        colors: {
+            background: [18, 18, 18],
+            surface: [30, 30, 30],
+            primary: [144, 202, 249],
+            secondary: [100, 181, 246],
+            accent: [66, 165, 245],
+            text: [255, 255, 255],
+            textMuted: [176, 176, 176]
+        }
+    },
+    {
+        name: 'cyberpunk',
+        colors: {
+            background: [0, 0, 0],
+            surface: [26, 26, 26],
+            primary: [0, 255, 159],
+            secondary: [255, 0, 255],
+            accent: [0, 255, 255],
+            text: [255, 255, 255],
+            textMuted: [0, 255, 159]
+        }
+    },
+    {
+        name: 'sunset',
+        colors: {
+            background: [45, 20, 44],
+            surface: [81, 10, 50],
+            primary: [238, 69, 64],
+            secondary: [255, 159, 28],
+            accent: [199, 44, 65],
+            text: [255, 255, 255],
+            textMuted: [238, 69, 64]
+        }
+    },
+    {
+        name: 'forest',
+        colors: {
+            background: [27, 67, 50],
+            surface: [45, 106, 79],
+            primary: [116, 198, 157],
+            secondary: [149, 213, 178],
+            accent: [64, 145, 108],
+            text: [255, 255, 255],
+            textMuted: [116, 198, 157]
+        }
+    },
+    {
+        name: 'ocean',
+        colors: {
+            background: [3, 4, 94],
+            surface: [2, 62, 138],
+            primary: [0, 180, 216],
+            secondary: [144, 224, 239],
+            accent: [0, 119, 182],
+            text: [255, 255, 255],
+            textMuted: [0, 180, 216]
+        }
+    }
+];
 
-function cycleTheme() {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    document.documentElement.dataset.theme = themes[currentThemeIndex];
+// Linear interpolation between two numbers
+function lerp(start, end, t) {
+    return start * (1 - t) + end * t;
 }
 
-// Start automatic theme cycling
-setInterval(cycleTheme, 10000); // Change theme every 10 seconds
+// Interpolate between two colors
+function lerpColor(color1, color2, t) {
+    return [
+        Math.round(lerp(color1[0], color2[0], t)),
+        Math.round(lerp(color1[1], color2[1], t)),
+        Math.round(lerp(color1[2], color2[2], t))
+    ];
+}
 
-// Allow manual theme toggle but continue the cycle
+// Convert RGB array to CSS color string
+function rgbToString(rgb) {
+    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
+let currentThemeIndex = 0;
+let transitionProgress = 0;
+const transitionDuration = 30; // 30 seconds for a full theme transition
+
+function updateTheme() {
+    const currentTheme = themes[currentThemeIndex];
+    const nextTheme = themes[(currentThemeIndex + 1) % themes.length];
+    
+    // Update all color variables with interpolated values
+    Object.keys(currentTheme.colors).forEach(key => {
+        const currentColor = currentTheme.colors[key];
+        const nextColor = nextTheme.colors[key];
+        const interpolatedColor = lerpColor(currentColor, nextColor, transitionProgress);
+        document.documentElement.style.setProperty(
+            `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`,
+            rgbToString(interpolatedColor)
+        );
+    });
+
+    // Update transition progress
+    transitionProgress += 1 / (60 * transitionDuration); // 60fps for transitionDuration seconds
+    
+    // When transition is complete, move to next theme
+    if (transitionProgress >= 1) {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        transitionProgress = 0;
+    }
+}
+
+// Start smooth theme cycling
+const themeInterval = setInterval(updateTheme, 1000 / 60); // 60fps updates
+
+// Manual theme toggle now smoothly transitions to next theme
 document.querySelector('.theme-toggle').addEventListener('click', () => {
-    cycleTheme(); // Immediately switch to next theme
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    transitionProgress = 0;
 });
 
 // Add input listeners for real-time validation
