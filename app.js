@@ -106,40 +106,22 @@ function updateMetric(element, value, isPositive = true) {
     }
 }
 
-// Theme handling
-const themes = [
-    'default',
-    'cyberpunk',
-    'forest',
-    'sunset',
-    'ocean',
-    'royal',
-    'retro',
-    'neon',
-    'desert',
-    'nordic'
-];
-
+// Theme cycling
+const themes = ['light', 'dark', 'cyberpunk', 'sunset', 'forest', 'ocean'];
 let currentThemeIndex = 0;
 
-function toggleTheme() {
-    // Remove all theme classes
-    themes.forEach(theme => {
-        document.documentElement.classList.remove(theme);
-    });
-
-    // Set new theme
+function cycleTheme() {
     currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    const newTheme = themes[currentThemeIndex];
-    
-    if (newTheme !== 'default') {
-        document.documentElement.classList.add(newTheme);
-    }
-
-    // Update button text with capitalized theme name
-    const themeButton = document.querySelector('.theme-toggle');
-    themeButton.textContent = `Theme: ${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)}`;
+    document.documentElement.dataset.theme = themes[currentThemeIndex];
 }
+
+// Start automatic theme cycling
+setInterval(cycleTheme, 10000); // Change theme every 10 seconds
+
+// Allow manual theme toggle but continue the cycle
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+    cycleTheme(); // Immediately switch to next theme
+});
 
 // Add input listeners for real-time validation
 document.querySelectorAll('input').forEach(input => {
@@ -167,7 +149,6 @@ document.querySelectorAll('input').forEach(input => {
 
 // Add button listeners
 document.querySelector('.calculate-btn').addEventListener('click', calculateProfit);
-document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
 
 // Initial calculation
 calculateProfit();

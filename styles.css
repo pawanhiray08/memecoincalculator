@@ -8,6 +8,67 @@
     --surface: #1f2937;         /* Slightly lighter gray */
     --text: #f3f4f6;
     --text-muted: #9ca3af;
+    transition: all 3s ease-in-out;
+}
+
+:root[data-theme="light"] {
+    --background: #ffffff;
+    --surface: #f5f5f5;
+    --primary: #2196f3;
+    --secondary: #1976d2;
+    --accent: #64b5f6;
+    --text: #212121;
+    --text-muted: #757575;
+}
+
+:root[data-theme="dark"] {
+    --background: #121212;
+    --surface: #1e1e1e;
+    --primary: #90caf9;
+    --secondary: #64b5f6;
+    --accent: #42a5f5;
+    --text: #ffffff;
+    --text-muted: #b0b0b0;
+}
+
+:root[data-theme="cyberpunk"] {
+    --background: #000000;
+    --surface: #1a1a1a;
+    --primary: #00ff9f;
+    --secondary: #ff00ff;
+    --accent: #00ffff;
+    --text: #ffffff;
+    --text-muted: #00ff9f;
+}
+
+:root[data-theme="sunset"] {
+    --background: #2d142c;
+    --surface: #510a32;
+    --primary: #ee4540;
+    --secondary: #ff9f1c;
+    --accent: #c72c41;
+    --text: #ffffff;
+    --text-muted: #ee4540;
+}
+
+:root[data-theme="forest"] {
+    --background: #1b4332;
+    --surface: #2d6a4f;
+    --primary: #74c69d;
+    --secondary: #95d5b2;
+    --accent: #40916c;
+    --text: #ffffff;
+    --text-muted: #74c69d;
+}
+
+:root[data-theme="ocean"] {
+    --background: #03045e;
+    --surface: #023e8a;
+    --primary: #00b4d8;
+    --secondary: #90e0ef;
+    --accent: #0077b6;
+    --text: #ffffff;
+    --text-muted: #00b4d8;
 }
 
 /* Cyberpunk Theme */
