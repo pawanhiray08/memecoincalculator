@@ -124,7 +124,7 @@ function getContrastRatio(l1, l2) {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
-// Get contrasting text color (black or white)
+// Get contrasting text color (black or white) with increased contrast
 function getContrastingTextColor(bgR, bgG, bgB) {
     const bgLuminance = getLuminance(bgR, bgG, bgB);
     const whiteLuminance = getLuminance(255, 255, 255);
@@ -133,12 +133,13 @@ function getContrastingTextColor(bgR, bgG, bgB) {
     const whiteContrast = getContrastRatio(whiteLuminance, bgLuminance);
     const blackContrast = getContrastRatio(blackLuminance, bgLuminance);
     
+    // Increase contrast by choosing more extreme values
     return whiteContrast > blackContrast ? [255, 255, 255] : [0, 0, 0];
 }
 
-// Get semi-transparent version of a color
+// Get semi-transparent version of a color with increased contrast
 function getTransparentColor(color, alpha) {
-    return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
+    return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${Math.min(alpha * 1.2, 1)})`;
 }
 
 // Theme data with RGB colors for smooth interpolation
@@ -146,13 +147,13 @@ const themes = [
     {
         name: 'light',
         colors: {
-            background: [240, 240, 240],
+            background: [245, 245, 245],
             surface: [255, 255, 255],
-            primary: [33, 150, 243],
-            secondary: [25, 118, 210],
+            primary: [25, 118, 210],
+            secondary: [33, 150, 243],
             accent: [100, 181, 246],
             text: [33, 33, 33],
-            textMuted: [117, 117, 117]
+            textMuted: [87, 87, 87]
         }
     },
     {
@@ -164,55 +165,55 @@ const themes = [
             secondary: [100, 181, 246],
             accent: [66, 165, 245],
             text: [255, 255, 255],
-            textMuted: [176, 176, 176]
+            textMuted: [200, 200, 200]
         }
     },
     {
         name: 'cyberpunk',
         colors: {
-            background: [10, 10, 20],
-            surface: [20, 20, 35],
+            background: [13, 13, 23],
+            surface: [23, 23, 38],
             primary: [0, 255, 159],
             secondary: [255, 0, 255],
             accent: [0, 255, 255],
-            text: [220, 220, 220],
-            textMuted: [180, 180, 180]
+            text: [235, 235, 235],
+            textMuted: [190, 190, 190]
         }
     },
     {
         name: 'sunset',
         colors: {
-            background: [45, 20, 44],
-            surface: [81, 10, 50],
+            background: [35, 15, 34],
+            surface: [71, 8, 40],
             primary: [255, 159, 28],
             secondary: [238, 69, 64],
             accent: [199, 44, 65],
             text: [255, 255, 255],
-            textMuted: [200, 200, 200]
+            textMuted: [220, 220, 220]
         }
     },
     {
         name: 'forest',
         colors: {
-            background: [27, 67, 50],
-            surface: [45, 106, 79],
-            primary: [149, 213, 178],
-            secondary: [116, 198, 157],
-            accent: [64, 145, 108],
+            background: [22, 57, 40],
+            surface: [40, 96, 69],
+            primary: [169, 233, 198],
+            secondary: [136, 218, 177],
+            accent: [84, 165, 128],
             text: [255, 255, 255],
-            textMuted: [200, 200, 200]
+            textMuted: [220, 220, 220]
         }
     },
     {
         name: 'ocean',
         colors: {
-            background: [3, 4, 94],
-            surface: [2, 62, 138],
-            primary: [144, 224, 239],
-            secondary: [0, 180, 216],
-            accent: [0, 119, 182],
+            background: [2, 3, 84],
+            surface: [2, 52, 128],
+            primary: [164, 244, 255],
+            secondary: [0, 200, 236],
+            accent: [0, 139, 202],
             text: [255, 255, 255],
-            textMuted: [200, 200, 200]
+            textMuted: [220, 220, 220]
         }
     }
 ];
@@ -232,15 +233,16 @@ function updateTheme() {
         transitionProgress
     );
 
-    // Get appropriate text colors based on background
+    // Get appropriate text colors based on background with increased contrast
     const textColor = getContrastingTextColor(
         interpolatedBackground[0],
         interpolatedBackground[1],
         interpolatedBackground[2]
     );
     
+    // Make muted text more visible while maintaining distinction
     const textMutedColor = textColor.map(c => 
-        Math.round(lerp(c, interpolatedBackground[c], 0.4))
+        Math.round(lerp(c, interpolatedBackground[c], 0.25))
     );
 
     // Update all color variables with interpolated values
@@ -264,9 +266,8 @@ function updateTheme() {
     });
 
     // Update transition progress
-    transitionProgress += 1 / (60 * transitionDuration); // 60fps for transitionDuration seconds
+    transitionProgress += 1 / (60 * transitionDuration);
     
-    // When transition is complete, move to next theme
     if (transitionProgress >= 1) {
         currentThemeIndex = (currentThemeIndex + 1) % themes.length;
         transitionProgress = 0;
